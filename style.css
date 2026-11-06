@@ -9,3 +9,27 @@
 .hero-badge span{font-size:8px;letter-spacing:1.8px;line-height:1.6;color:#c8d8ef}
 @media(max-width:800px){.hero-photo{height:330px;width:min(300px,85%)}}
 @media(max-width:430px){.hero-photo{height:280px}}
+
+/* Gallery: filters, masonry grid, lightbox */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+.filter-btn{background:transparent;border:1px solid #33435c;color:#b4bfd0;padding:9px 16px;border-radius:999px;font:600 12px var(--font);cursor:pointer;transition:.2s}
+.filter-btn span{color:#6ea8ff;margin-left:6px;font-size:11px}
+.filter-btn:hover{border-color:#3987ff;color:#fff}
+.filter-btn.active{background:#2677f5;border-color:#2677f5;color:#fff}
+.filter-btn.active span{color:#dbeaff}
+.gallery-grid{columns:3 300px;column-gap:22px}
+.gallery-card{break-inside:avoid;margin:0 0 22px;border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden;background:#0c111b}
+.gallery-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.gallery-thumb img{display:block;width:100%;height:auto}
+.gallery-info{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+.gallery-info h3{font:700 14px var(--display);margin:0 0 3px}
+.gallery-info p{font-size:11px;color:#8997ab;margin:0}
+.gallery-arrow{font-size:18px;color:#69a7ff}
+.gallery-card.hidden{display:none}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(4,7,12,.92);display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:24px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(920px,94vw);max-height:82vh;object-fit:contain;border-radius:8px;border:1px solid rgba(120,170,255,.3)}
+.lightbox-caption{color:#c8d8ef;font-size:13px}
+.lightbox-close{position:absolute;top:18px;right:22px;background:none;border:1px solid #33435c;color:#fff;width:42px;height:42px;border-radius:50%;font-size:22px;cursor:pointer}
+@media(max-width:800px){.gallery-grid{columns:2 260px}}
+@media(max-width:430px){.gallery-grid{columns:1}}
