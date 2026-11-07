@@ -34,6 +34,6 @@ updateDots();
 
 const galleryCards=document.querySelectorAll('.gallery-card');
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const el=e.target;const idx=[...el.parentElement.children].indexOf(el);if(e.isIntersecting){el.style.transitionDelay=(idx%3*120)+'ms';el.classList.add('card-in');setTimeout(()=>{el.style.transitionDelay='';},1250);}else{el.classList.remove('card-in');}});},{threshold:.12,rootMargin:'0px 0px 100px 0px'});
+const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const el=e.target;const idx=[...el.parentElement.children].indexOf(el);if(e.isIntersecting){el.style.transitionDelay=(idx%3*120)+'ms';el.classList.add('card-in');setTimeout(()=>{el.style.transitionDelay='';},1250);}else{el.classList.remove('card-in');}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 galleryCards.forEach(c=>cardObserver.observe(c));
 }else{galleryCards.forEach(c=>c.classList.add('card-in'));}
