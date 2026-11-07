@@ -99,9 +99,9 @@
 .review-card .review-stars{color:#f5b301;letter-spacing:2px;font-size:15px}
 .review-text{font-size:15px;line-height:1.75;margin:0;flex:1}
 .review-who{display:flex;align-items:center;gap:12px}
-.review-avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 16px var(--display);color:#fff;background:linear-gradient(135deg,#2677f5,#7c5cff);flex:none}
-.review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#7c5cff,#38c6ff)}
-.review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.review-avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:800 22px/1 var(--display);color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);box-shadow:0 0 0 2px rgba(255,255,255,.22),0 4px 14px rgba(0,0,0,.35);background:linear-gradient(135deg,#1d4ed8,#7c3aed);flex:none}
+.review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#6d28d9,#1d4ed8)}
+.review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#b45309,#b91c1c)}
 .review-who b{display:block;font-size:14px}
 .review-who span{font-size:11px;color:var(--muted)}
 .review-gig{align-self:flex-start;font-size:10px;letter-spacing:1.5px;color:#6ea8ff;border:1px solid rgba(110,168,255,.35);border-radius:999px;padding:5px 10px}

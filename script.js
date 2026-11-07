@@ -12,11 +12,20 @@ const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e
 document.querySelectorAll('.work-section,.reviews-section,.services-section,.about-section,.contact-section,.intro-strip').forEach(el=>{el.classList.add('reveal');revealObserver.observe(el);});
 
 const reviewsTrack=document.getElementById('reviews-track');
-document.getElementById('reviews-prev').addEventListener('click',()=>{reviewsTrack.scrollBy({left:-360,behavior:'smooth'});});
-document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTrack.scrollBy({left:360,behavior:'smooth'});});
+document.getElementById('reviews-prev').addEventListener('click',()=>{reviewsTrack.scrollBy({left:-360,behavior:'smooth'});restartReviewsAuto();});
+document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTrack.scrollBy({left:360,behavior:'smooth'});restartReviewsAuto();});
+let reviewsTimer=null;let reviewsAutoOn=true;
+function reviewsStep(){if(!reviewsAutoOn)return;const max=reviewsTrack.scrollWidth-reviewsTrack.clientWidth;if(reviewsTrack.scrollLeft>=max-10){reviewsTrack.scrollTo({left:0,behavior:'smooth'});}else{reviewsTrack.scrollBy({left:360,behavior:'smooth'});}}
+function startReviewsAuto(){if(reviewsTimer||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;reviewsTimer=setInterval(reviewsStep,3500);}
+function stopReviewsAuto(){clearInterval(reviewsTimer);reviewsTimer=null;}
+function restartReviewsAuto(){stopReviewsAuto();startReviewsAuto();}
+const reviewsSection=document.getElementById('reviews');
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startReviewsAuto();}else{stopReviewsAuto();}});},{threshold:.1}).observe(reviewsSection);
+reviewsSection.addEventListener('mouseenter',()=>{reviewsAutoOn=false;stopReviewsAuto();});
+reviewsSection.addEventListener('mouseleave',()=>{reviewsAutoOn=true;startReviewsAuto();});
 
 const galleryCards=document.querySelectorAll('.gallery-card');
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const el=e.target;const idx=[...el.parentElement.children].indexOf(el);if(e.isIntersecting){el.style.transitionDelay=(idx%3*120)+'ms';el.classList.add('card-in');setTimeout(()=>{el.style.transitionDelay='';},1250);}else{el.classList.remove('card-in');}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const el=e.target;const idx=[...el.parentElement.children].indexOf(el);if(e.isIntersecting){el.style.transitionDelay=(idx%3*120)+'ms';el.classList.add('card-in');setTimeout(()=>{el.style.transitionDelay='';},1250);}else{el.classList.remove('card-in');}});},{threshold:.12,rootMargin:'0px 0px 100px 0px'});
 galleryCards.forEach(c=>cardObserver.observe(c));
 }else{galleryCards.forEach(c=>c.classList.add('card-in'));}
