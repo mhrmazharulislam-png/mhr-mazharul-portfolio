@@ -99,7 +99,7 @@
 .review-card .review-stars{color:#f5b301;letter-spacing:2px;font-size:15px}
 .review-text{font-size:15px;line-height:1.75;margin:0;flex:1}
 .review-who{display:flex;align-items:center;gap:12px}
-.review-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:800 24px/1 var(--display);color:#fff;background:linear-gradient(135deg,#16294d,#241a4d);box-shadow:0 0 0 2px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.4);flex:none}
+.review-who .review-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:800 24px/1 var(--display);color:#fff;background:linear-gradient(135deg,#16294d,#241a4d);box-shadow:0 0 0 2px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.4);flex:none}
 .review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#0f3a4d,#16294d)}
 .review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#3d1a2e,#241a4d)}
 .review-who b{display:block;font-size:14px}
