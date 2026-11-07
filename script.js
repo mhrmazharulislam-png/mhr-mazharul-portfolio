@@ -8,7 +8,7 @@ function closeLightbox(){lightbox.classList.remove('open');lightbox.setAttribute
 document.querySelectorAll('.gallery-thumb').forEach(thumb=>{thumb.addEventListener('click',()=>{popupList=[...document.querySelectorAll('.gallery-thumb')].filter(t=>!t.closest('.gallery-section').classList.contains('hidden'));openPopup(popupList.indexOf(thumb));});});
 document.getElementById('lightbox-close').addEventListener('click',closeLightbox);document.getElementById('lightbox-prev').addEventListener('click',e=>{e.stopPropagation();stepPopup(-1);});document.getElementById('lightbox-next').addEventListener('click',e=>{e.stopPropagation();stepPopup(1);});lightbox.addEventListener('click',e=>{if(e.target===lightbox){closeLightbox();}});document.addEventListener('keydown',e=>{if(!lightbox.classList.contains('open'))return;if(e.key==='Escape'){closeLightbox();}if(e.key==='ArrowLeft'){stepPopup(-1);}if(e.key==='ArrowRight'){stepPopup(1);}});
 
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}});},{threshold:.12});
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.target.classList.contains('work-section')){if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}}else{e.target.classList.toggle('visible',e.isIntersecting);}});},{threshold:.12});
 document.querySelectorAll('.work-section,.reviews-section,.services-section,.about-section,.contact-section,.intro-strip').forEach(el=>{el.classList.add('reveal');revealObserver.observe(el);});
 
 const reviewsTrack=document.getElementById('reviews-track');
@@ -17,6 +17,6 @@ document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTra
 
 const galleryCards=document.querySelectorAll('.gallery-card');
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target;const idx=[...el.parentElement.children].indexOf(el);el.style.transitionDelay=(idx%3*90)+'ms';el.classList.add('card-in');cardObserver.unobserve(el);setTimeout(()=>{el.style.transitionDelay='';},850);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+const cardObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{const el=e.target;const idx=[...el.parentElement.children].indexOf(el);if(e.isIntersecting){el.style.transitionDelay=(idx%3*120)+'ms';el.classList.add('card-in');setTimeout(()=>{el.style.transitionDelay='';},1250);}else{el.classList.remove('card-in');}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 galleryCards.forEach(c=>cardObserver.observe(c));
 }else{galleryCards.forEach(c=>c.classList.add('card-in'));}
