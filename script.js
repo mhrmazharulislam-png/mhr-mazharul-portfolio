@@ -17,15 +17,15 @@ document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTra
 const reviewsSection=document.getElementById('reviews');
 const reviewCards=[...reviewsTrack.children];
 reviewCards.forEach(c=>reviewsTrack.appendChild(c.cloneNode(true)));
-let marqueeRaf=null;let marqueeRunning=false;
-let trackHovered=false;let navResumeTimer=null;
-function pauseMarqueeForNav(){stopMarquee();clearTimeout(navResumeTimer);navResumeTimer=setTimeout(()=>{if(!trackHovered)startMarquee();},750);}
+let marqueeRaf=null;let marqueeRunning=false;let reviewsVisible=false;
+let controlsHovered=false;let navResumeTimer=null;
+function pauseMarqueeForNav(){stopMarquee();clearTimeout(navResumeTimer);navResumeTimer=setTimeout(()=>{if(reviewsVisible)startMarquee(true);},5000);}
 function marqueeTick(){reviewsTrack.scrollLeft+=0.7;const half=reviewsTrack.scrollWidth/2;if(reviewsTrack.scrollLeft>=half){reviewsTrack.scrollLeft-=half;}marqueeRaf=requestAnimationFrame(marqueeTick);}
-function startMarquee(){if(marqueeRunning||trackHovered||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;marqueeRunning=true;marqueeRaf=requestAnimationFrame(marqueeTick);}
+function startMarquee(force){if(marqueeRunning||!reviewsVisible||(!force&&controlsHovered)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;marqueeRunning=true;marqueeRaf=requestAnimationFrame(marqueeTick);}
 function stopMarquee(){marqueeRunning=false;cancelAnimationFrame(marqueeRaf);}
-new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startMarquee();}else{stopMarquee();}});},{threshold:.1}).observe(reviewsSection);
-reviewsTrack.addEventListener('mouseenter',()=>{trackHovered=true;stopMarquee();});
-reviewsTrack.addEventListener('mouseleave',()=>{trackHovered=false;startMarquee();});
+new IntersectionObserver(es=>{es.forEach(e=>{reviewsVisible=e.isIntersecting;if(e.isIntersecting){startMarquee();}else{stopMarquee();}});},{threshold:.1}).observe(reviewsSection);
+const reviewsControls=[document.querySelector('.reviews-wrap'),document.getElementById('reviews-dots')];
+reviewsControls.forEach(el=>{el.addEventListener('mouseenter',()=>{controlsHovered=true;stopMarquee();clearTimeout(navResumeTimer);});el.addEventListener('mouseleave',()=>{controlsHovered=false;clearTimeout(navResumeTimer);startMarquee();});});
 const reviewsDots=document.getElementById('reviews-dots');
 const dots=[];
 function reviewPitch(){return reviewCards[1]?reviewCards[1].offsetLeft-reviewCards[0].offsetLeft:358;}
