@@ -92,16 +92,16 @@
 .reviews-score .reviews-stars{color:#f5b301;letter-spacing:3px;font-size:18px}
 .reviews-score span{color:var(--muted);font-size:13px}
 .reviews-wrap{display:flex;align-items:center;gap:14px}
-.reviews-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;scrollbar-width:none;flex:1}
+.reviews-track{display:flex;gap:18px;overflow-x:auto;padding:6px 2px 18px;scrollbar-width:none;flex:1}
 .reviews-track::-webkit-scrollbar{display:none}
 .review-card{min-width:min(340px,85%);scroll-snap-align:start;background:#0c111b;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s ease}
 .review-card:hover{transform:translateY(-6px);border-color:rgba(110,168,255,.45)}
 .review-card .review-stars{color:#f5b301;letter-spacing:2px;font-size:15px}
 .review-text{font-size:15px;line-height:1.75;margin:0;flex:1}
 .review-who{display:flex;align-items:center;gap:12px}
-.review-avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:800 22px/1 var(--display);color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);box-shadow:0 0 0 2px rgba(255,255,255,.22),0 4px 14px rgba(0,0,0,.35);background:linear-gradient(135deg,#1d4ed8,#7c3aed);flex:none}
-.review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#6d28d9,#1d4ed8)}
-.review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#b45309,#b91c1c)}
+.review-avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:800 24px/1 var(--display);color:#fff;background:linear-gradient(135deg,#16294d,#241a4d);box-shadow:0 0 0 2px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.4);flex:none}
+.review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#0f3a4d,#16294d)}
+.review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#3d1a2e,#241a4d)}
 .review-who b{display:block;font-size:14px}
 .review-who span{font-size:11px;color:var(--muted)}
 .review-gig{align-self:flex-start;font-size:10px;letter-spacing:1.5px;color:#6ea8ff;border:1px solid rgba(110,168,255,.35);border-radius:999px;padding:5px 10px}
@@ -136,3 +136,9 @@
 .lightbox-next{right:20px}
 .lightbox-counter{color:#9ba8bb;font-size:12px;letter-spacing:1px}
 @media (max-width:640px){.lightbox-nav{width:40px;height:40px;font-size:22px}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-caption{font-size:12px}}
+
+/* Reviews dot navigation: one dot per review */
+.reviews-dots{display:flex;gap:8px;justify-content:center;margin-top:20px}
+.reviews-dot{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
+.reviews-dot:hover{background:rgba(255,255,255,.55)}
+.reviews-dot.active{width:26px;background:linear-gradient(90deg,#2677f5,#7c5cff,#e14eca)}

@@ -12,17 +12,25 @@ const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e
 document.querySelectorAll('.work-section,.reviews-section,.services-section,.about-section,.contact-section,.intro-strip').forEach(el=>{el.classList.add('reveal');revealObserver.observe(el);});
 
 const reviewsTrack=document.getElementById('reviews-track');
-document.getElementById('reviews-prev').addEventListener('click',()=>{reviewsTrack.scrollBy({left:-360,behavior:'smooth'});restartReviewsAuto();});
-document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTrack.scrollBy({left:360,behavior:'smooth'});restartReviewsAuto();});
-let reviewsTimer=null;let reviewsAutoOn=true;
-function reviewsStep(){if(!reviewsAutoOn)return;const max=reviewsTrack.scrollWidth-reviewsTrack.clientWidth;if(reviewsTrack.scrollLeft>=max-10){reviewsTrack.scrollTo({left:0,behavior:'smooth'});}else{reviewsTrack.scrollBy({left:360,behavior:'smooth'});}}
-function startReviewsAuto(){if(reviewsTimer||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;reviewsTimer=setInterval(reviewsStep,3500);}
-function stopReviewsAuto(){clearInterval(reviewsTimer);reviewsTimer=null;}
-function restartReviewsAuto(){stopReviewsAuto();startReviewsAuto();}
+document.getElementById('reviews-prev').addEventListener('click',()=>{reviewsTrack.scrollBy({left:-360,behavior:'smooth'});});
+document.getElementById('reviews-next').addEventListener('click',()=>{reviewsTrack.scrollBy({left:360,behavior:'smooth'});});
 const reviewsSection=document.getElementById('reviews');
-new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startReviewsAuto();}else{stopReviewsAuto();}});},{threshold:.1}).observe(reviewsSection);
-reviewsTrack.addEventListener('mouseenter',()=>{reviewsAutoOn=false;stopReviewsAuto();});
-reviewsTrack.addEventListener('mouseleave',()=>{reviewsAutoOn=true;startReviewsAuto();});
+const reviewCards=[...reviewsTrack.children];
+reviewCards.forEach(c=>reviewsTrack.appendChild(c.cloneNode(true)));
+let marqueeRaf=null;let marqueeRunning=false;
+function marqueeTick(){reviewsTrack.scrollLeft+=0.7;const half=reviewsTrack.scrollWidth/2;if(reviewsTrack.scrollLeft>=half){reviewsTrack.scrollLeft-=half;}marqueeRaf=requestAnimationFrame(marqueeTick);}
+function startMarquee(){if(marqueeRunning||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;marqueeRunning=true;marqueeRaf=requestAnimationFrame(marqueeTick);}
+function stopMarquee(){marqueeRunning=false;cancelAnimationFrame(marqueeRaf);}
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startMarquee();}else{stopMarquee();}});},{threshold:.1}).observe(reviewsSection);
+reviewsTrack.addEventListener('mouseenter',stopMarquee);
+reviewsTrack.addEventListener('mouseleave',startMarquee);
+const reviewsDots=document.getElementById('reviews-dots');
+const dots=[];
+function reviewPitch(){return reviewCards[1]?reviewCards[1].offsetLeft-reviewCards[0].offsetLeft:358;}
+for(let i=0;i<reviewCards.length;i++){const d=document.createElement('button');d.className='reviews-dot';d.setAttribute('aria-label','Go to review '+(i+1));d.addEventListener('click',()=>{reviewsTrack.scrollTo({left:i*reviewPitch(),behavior:'smooth'});});reviewsDots.appendChild(d);dots.push(d);}
+function updateDots(){let idx=Math.round(reviewsTrack.scrollLeft/reviewPitch())%dots.length;if(idx<0)idx+=dots.length;dots.forEach((d,j)=>d.classList.toggle('active',j===idx));}
+reviewsTrack.addEventListener('scroll',()=>{requestAnimationFrame(updateDots);},{passive:true});
+updateDots();
 
 const galleryCards=document.querySelectorAll('.gallery-card');
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
