@@ -107,3 +107,32 @@
 .review-gig{align-self:flex-start;font-size:10px;letter-spacing:1.5px;color:#6ea8ff;border:1px solid rgba(110,168,255,.35);border-radius:999px;padding:5px 10px}
 .reviews-arrow{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid #33435c;background:transparent;color:#dbeaff;font-size:22px;cursor:pointer;transition:.2s}
 .reviews-arrow:hover{border-color:#3987ff;background:#2677f5}
+
+/* Scroll-in animation: gallery designs appear smoothly as you scroll */
+.gallery-card{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1),box-shadow .5s cubic-bezier(.22,1,.36,1)}
+.gallery-card.card-in{opacity:1;transform:translateY(0)}
+.gallery-card.card-in:hover{transform:translateY(-8px)}
+@media (prefers-reduced-motion:reduce){.gallery-card{opacity:1;transform:none;transition:none}}
+
+/* Glass effect: filter pills + review cards + popup chrome */
+.filter-btn{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
+.review-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12)}
+.lightbox-close{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2)}
+.lightbox-caption{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 18px;border-radius:999px}
+
+/* Colorful gradient buttons */
+.button-primary{background:linear-gradient(135deg,#2677f5,#7c5cff 48%,#e14eca);box-shadow:0 8px 35px rgba(124,92,255,.35)}
+.button-primary:hover{background:linear-gradient(135deg,#438cff,#8f6bff 48%,#ef5fd6);transform:translateY(-2px)}
+.filter-btn.active{background:linear-gradient(135deg,#2677f5,#7c5cff 55%,#e14eca);border-color:transparent}
+.reviews-arrow:hover{background:linear-gradient(135deg,#2677f5,#7c5cff);border-color:transparent}
+
+/* Popup system: smooth open animation, glass nav, counter */
+.lightbox{background:rgba(4,7,12,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.lightbox.open img{animation:popup-in .35s cubic-bezier(.22,1,.36,1)}
+@keyframes popup-in{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:26px;cursor:pointer;transition:.2s;z-index:2}
+.lightbox-nav:hover{background:linear-gradient(135deg,#2677f5,#7c5cff);border-color:transparent}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+.lightbox-counter{color:#9ba8bb;font-size:12px;letter-spacing:1px}
+@media (max-width:640px){.lightbox-nav{width:40px;height:40px;font-size:22px}.lightbox-prev{left:8px}.lightbox-next{right:8px}.lightbox-caption{font-size:12px}}
