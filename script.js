@@ -21,8 +21,8 @@ function stopReviewsAuto(){clearInterval(reviewsTimer);reviewsTimer=null;}
 function restartReviewsAuto(){stopReviewsAuto();startReviewsAuto();}
 const reviewsSection=document.getElementById('reviews');
 new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){startReviewsAuto();}else{stopReviewsAuto();}});},{threshold:.1}).observe(reviewsSection);
-reviewsSection.addEventListener('mouseenter',()=>{reviewsAutoOn=false;stopReviewsAuto();});
-reviewsSection.addEventListener('mouseleave',()=>{reviewsAutoOn=true;startReviewsAuto();});
+reviewsTrack.addEventListener('mouseenter',()=>{reviewsAutoOn=false;stopReviewsAuto();});
+reviewsTrack.addEventListener('mouseleave',()=>{reviewsAutoOn=true;startReviewsAuto();});
 
 const galleryCards=document.querySelectorAll('.gallery-card');
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
