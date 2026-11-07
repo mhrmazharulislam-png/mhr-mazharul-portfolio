@@ -57,11 +57,12 @@
 
 /* Modern hero: animated glow background + photo popup on hover */
 .hero-photo{transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s cubic-bezier(.22,1,.36,1),border-color .6s ease;will-change:transform}
-.hero-art::before{content:"";position:absolute;width:420px;height:520px;border-radius:50%;background:conic-gradient(from 0deg,#2677f5 0deg,#7c5cff 70deg,#38c6ff 140deg,#2677f5 220deg,#38c6ff 300deg,#2677f5 360deg);filter:blur(38px);opacity:.4;z-index:0;transition:opacity .6s ease;animation:hero-glow-spin 8s linear infinite}
+.hero-art{background:radial-gradient(circle at 50% 50%,rgba(38,119,245,.16),transparent 65%)}
+.hero-art::before{content:"";position:absolute;width:470px;height:470px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,#69a8ff 60deg,#b48cff 110deg,transparent 170deg,transparent 360deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));opacity:0;z-index:1;transition:opacity .6s ease;animation:hero-ring-spin 5s linear infinite}
 .hero-art::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(105,168,255,.5),transparent 70%);filter:blur(40px);opacity:.35;z-index:0;transition:opacity .6s ease;animation:hero-glow-pulse 5s ease-in-out infinite}
-.hero-art:hover::before{opacity:.55}
+.hero-art:hover::before{opacity:1}
 .hero-art:hover::after{opacity:.7}
-@keyframes hero-glow-spin{to{transform:rotate(360deg)}}
+@keyframes hero-ring-spin{to{transform:rotate(360deg)}}
 @keyframes hero-glow-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 .orbit-one{animation:orbit-drift-one 9s ease-in-out infinite}
 .orbit-two{animation:orbit-drift-two 11s ease-in-out infinite}
@@ -76,4 +77,33 @@
 @keyframes orb-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-26px) scale(1.25)}}
 .hero-art:hover .hero-photo{transform:translateY(-12px) scale(1.03);box-shadow:0 40px 90px rgba(20,100,230,.45),0 0 0 1px rgba(140,190,255,.35);border-color:rgba(140,190,255,.8)}
 .hero-badge{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease,border-color .5s ease}
-.hero-art:hover .hero-badge{transform:translateY(-10px) scale(1.08);box-shadow:0 16px 40px rgba(20,100,230,.4);border-color:rgba(140,190,255,.7)}
+.hero-art:hover .hero-badge{transform:translateY(-22px) scale(1.1);box-shadow:0 16px 40px rgba(20,100,230,.4);border-color:rgba(140,190,255,.7)}
+
+/* Scroll reveal: sections fade up as you scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* Reviews: modern Fiverr testimonial carousel */
+.reviews-section{padding-top:110px;padding-bottom:110px}
+.reviews-summary{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:30px}
+.reviews-score{display:flex;align-items:baseline;gap:16px}
+.reviews-score b{font:800 54px var(--display);letter-spacing:-2px}
+.reviews-score .reviews-stars{color:#f5b301;letter-spacing:3px;font-size:18px}
+.reviews-score span{color:var(--muted);font-size:13px}
+.reviews-wrap{display:flex;align-items:center;gap:14px}
+.reviews-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;scrollbar-width:none;flex:1}
+.reviews-track::-webkit-scrollbar{display:none}
+.review-card{min-width:min(340px,85%);scroll-snap-align:start;background:#0c111b;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s ease}
+.review-card:hover{transform:translateY(-6px);border-color:rgba(110,168,255,.45)}
+.review-card .review-stars{color:#f5b301;letter-spacing:2px;font-size:15px}
+.review-text{font-size:15px;line-height:1.75;margin:0;flex:1}
+.review-who{display:flex;align-items:center;gap:12px}
+.review-avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 16px var(--display);color:#fff;background:linear-gradient(135deg,#2677f5,#7c5cff);flex:none}
+.review-card:nth-child(3n+2) .review-avatar{background:linear-gradient(135deg,#7c5cff,#38c6ff)}
+.review-card:nth-child(3n+3) .review-avatar{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.review-who b{display:block;font-size:14px}
+.review-who span{font-size:11px;color:var(--muted)}
+.review-gig{align-self:flex-start;font-size:10px;letter-spacing:1.5px;color:#6ea8ff;border:1px solid rgba(110,168,255,.35);border-radius:999px;padding:5px 10px}
+.reviews-arrow{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid #33435c;background:transparent;color:#dbeaff;font-size:22px;cursor:pointer;transition:.2s}
+.reviews-arrow:hover{border-color:#3987ff;background:#2677f5}
